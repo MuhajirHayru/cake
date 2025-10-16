@@ -21,6 +21,6 @@ from django.urls import path,include
 
 urlpatterns = [
     path('',include('cake.urls')),
-    path('admin/', admin.site.urls),
+    path('controll/', admin.site.urls),
 ]   # only for development
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
