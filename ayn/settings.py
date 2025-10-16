@@ -13,22 +13,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ============================
 
 SECRET_KEY = 'django-insecure-nvwsa6h%p5^i0dpah@_jp#1i54%&isn_nmo3d-bjpl=7p!n1w^'
-DEBUG = False  # Set to True during development to test static files
-ALLOWED_HOSTS = ["*"]  # Update for production
+DEBUG = True  # Set to True for development
+ALLOWED_HOSTS = ["*"]  # Replace with your domain/IP in production
 
 # ============================
 # ✅ Installed Apps
 # ============================
 
 INSTALLED_APPS = [
-    'jazzmin',  # MUST come before django.contrib.admin
+    'jazzmin',  # Jazzmin must come before admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cake',  # your app
+    'cake',
 ]
 
 # ============================
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ WhiteNoise for static files
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,7 +60,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',  # ✅ Add this
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -87,18 +87,10 @@ DATABASES = {
 # ============================
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # ============================
@@ -115,12 +107,8 @@ USE_TZ = True
 # ============================
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # for local static files (optional)
-]
-
-STATIC_ROOT = BASE_DIR / "staticfiles"  # ✅ Use this only once!
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -141,12 +129,11 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Welcome to My Admin",
     "show_sidebar": True,
     "navigation_expanded": True,
-    
-    # Optional: to use the same image in favicon and top-left
-    "site_logo_classes": "img-circle",  # Make it round
-    "site_icon": "media\items\p3.jpg",
-    # Remove these if you don't have apps named "myapp" and "blog"
-    # "order_with_respect_to": ["myapp", "blog"],
+    "site_logo_classes": "img-circle",
+
+    # ✅ Use relative path inside static, not media (better)
+    # Move your logo to: static/images/logo.png
+    "site_icon": "images/logo.png",  # relative to /static/
     "icons": {
         "auth": "fas fa-users-cog",
         "auth.User": "fas fa-user",
