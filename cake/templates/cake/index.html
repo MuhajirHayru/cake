@@ -47,11 +47,15 @@
 				<div class="container">
 					<div class="float-left">
 						{% for x in item %}
-        				
-						
-						<a href="{{ x.phoneNo }}"><i class="fa fa-phone" aria-hidden="true">{{ x.phoneNo }}</i> </a>
-						<a href="{{ x.telegramlink}}"><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ x.telegramlink}}</a>
-						{% endfor %}
+    <a href="{{ x.phoneNo }}">
+        <i class="fa fa-phone" aria-hidden="true"></i> {{ x.phoneNo }}
+    </a>
+    
+    <a href="{{ x.telegramlink }}">
+        <i class="fab fa-telegram" aria-hidden="true"></i> {{ x.telegramlink }}
+    </a>
+{% endfor %}
+
 					</div>
 					<div class="float-right">
 						<ul class="h_social list_style">
@@ -61,7 +65,7 @@
 							<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
 						</ul>
 						<ul class="h_search list_style">
-							<li class="shop_cart"><a href="#"><i class="lnr lnr-cart"></i></a></li>
+							{% comment %} <li class="shop_cart"><a href="#"><i class="lnr lnr-cart"></i></a></li> {% endcomment %}
 							<li><a class="popup-with-zoom-anim" href="#test-search"><i class="fa fa-search"></i></a></li>
 						</ul>
 					</div>
